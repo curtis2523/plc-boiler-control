@@ -1,6 +1,6 @@
 # PLC Boiler Control & Web Monitoring
 
-<img src="assets/cover.webp" alt="Boiler control panel from the course demonstration" width="560">
+<img src="assets/cover.webp" alt="NiceGUI boiler control panel" width="560">
 
 I worked on the Logisim circuit, OpenPLC ladder logic, and Python web interface for an undergraduate boiler-control bench. Pushbuttons and LEDs represent the controls and outputs. The temperature shown in the browser is the selected setpoint.
 
@@ -12,7 +12,7 @@ I worked on the Logisim circuit, OpenPLC ladder logic, and Python web interface 
 
 [Logisim circuit](assets/screenshots/logisim-boiler-logic.png) · [OpenPLC monitor](assets/screenshots/openplc-runtime-monitor.png) · [Running HMI](assets/screenshots/nicegui-running-panel.png)
 
-**Original recordings** · [Logisim state sequence](assets/demos/logisim-boiler-state-sequence.mp4) · [Pico buttons and LEDs](assets/demos/openplc-pico-button-and-led-sequence.mp4) · [NiceGUI emergency state](assets/demos/nicegui-emergency-interface.mp4)
+**Videos** · [Boiler Control Logic Demo](assets/demos/logisim-boiler-state-sequence.mp4) · [Raspberry Pi Pico Hardware Demo](assets/demos/openplc-pico-button-and-led-sequence.mp4) · [NiceGUI Web Interface](assets/demos/nicegui-emergency-interface.mp4)
 
 ## Tech Stack
 
@@ -32,12 +32,10 @@ flowchart LR
     HMI -. attempted coil writes .-> Pico
 ```
 
-## Source Code
+## Code
 
 - [Logisim circuit](src/logisim/boiler-control.circ)
-- [OpenPLC project and board settings](src/openplc) · [Structured Text exports](src/openplc/st-exports)
+- [OpenPLC project and board settings](src/openplc) · [Structured Text exports](src/openplc/st-exports) (base and offset I/O variants)
 - [Python HMI](src/hmi/main.py)
-
-The Structured Text exports include different I/O mappings. The lab’s deployed variant is unconfirmed.
 
 The Structured Text exports retain the OpenPLC Runtime debugger notices for Autonomy and GP Orcullo. [GPL version 2 text](src/openplc/st-exports/LICENSE-GPL-2.0.txt)
