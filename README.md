@@ -6,6 +6,18 @@
 
 A laboratory boiler-control prototype built in three stages. We modeled the control rules in Logisim Evolution, implemented physical button and LED behavior with OpenPLC and a Raspberry Pi Pico, and added a local browser HMI in Python. The displayed temperature is a stepped setpoint.
 
+## Course Demonstration Videos
+
+These MP4 excerpts come from the original course recordings. Open a video below to view or download the recording on GitHub.
+
+| Exercise | Course recording |
+| --- | --- |
+| Logisim | [Setpoint, RUN and reset sequence (MP4)](assets/demos/logisim-boiler-state-sequence.mp4) |
+| OpenPLC / Pico | [Physical buttons and LED indicators (MP4)](assets/demos/openplc-pico-button-and-led-sequence.mp4) |
+| NiceGUI | [Browser panel after emergency reset (MP4)](assets/demos/nicegui-emergency-interface.mp4) |
+
+[Video source and timestamps](docs/video-index.md) · [Report screenshots](docs/image-index.md)
+
 ## My Role & Contributions
 
 I co-developed the Logisim circuit and OpenPLC ladder logic and organized documentation for those stages. For the HMI, I shared code editing with my teammate and recorded and edited the demonstration video.
@@ -37,24 +49,6 @@ flowchart LR
 ## Challenges & Solutions
 
 The team adjusted Modbus settings, checked the hardware connection and inspected the protocol while investigating missed writes and delayed updates. Immediate UI state changes and notifications kept the control workflow visible in the demo. The report describes diagnostic and retry snippets. The retained script catches write exceptions without logging or retrying and does not check the write response.
-
-## Project Screenshots
-
-| Course evidence | Original capture |
-| --- | --- |
-| Browser RUN | ![NiceGUI running panel](assets/screenshots/nicegui-running-panel.png) |
-| Browser emergency reset | ![NiceGUI emergency panel](assets/screenshots/nicegui-emergency-panel.png) |
-| Pico wiring | ![Wired buttons and LEDs](assets/screenshots/pico-bench-wiring.png) |
-| OpenPLC monitor | ![OpenPLC variable monitor](assets/screenshots/openplc-runtime-monitor.png) |
-| Logic circuit | ![Logisim schematic](assets/screenshots/logisim-boiler-logic.png) |
-
-## Original Course Recordings
-
-- [Logisim setpoint, RUN and reset sequence](assets/demos/logisim-boiler-state-sequence.mp4)
-- [OpenPLC monitoring with physical Pico buttons and LEDs](assets/demos/openplc-pico-button-and-led-sequence.mp4)
-- [NiceGUI panel after emergency reset](assets/demos/nicegui-emergency-interface.mp4)
-
-See the [video index](docs/video-index.md) for provenance and edits.
 
 ## Results & Limitations
 

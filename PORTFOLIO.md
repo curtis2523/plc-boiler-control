@@ -21,12 +21,12 @@ I co-developed the circuit and ladder logic, helped edit the HMI code, and recor
 - **Engineering challenge** · Comparing local UI state with physical outputs when Modbus writes were intermittent.
 - **Result** · Bench input/output behavior and the HMI state transitions were demonstrated. The browser write path remained unreliable.
 
-## Screenshot Gallery
+## Course Demonstration Videos
 
-![NiceGUI HMI in RUN](assets/screenshots/nicegui-running-panel.png)
-![Emergency reset in the interface](assets/screenshots/nicegui-emergency-panel.png)
-![Original Pico wiring](assets/screenshots/pico-bench-wiring.png)
-![OpenPLC variable monitor](assets/screenshots/openplc-runtime-monitor.png)
-![Logisim circuit](assets/screenshots/logisim-boiler-logic.png)
+| Exercise | Course recording |
+| --- | --- |
+| Logisim | [Setpoint, RUN and reset sequence (MP4)](assets/demos/logisim-boiler-state-sequence.mp4) |
+| OpenPLC / Pico | [Physical buttons and LED indicators (MP4)](assets/demos/openplc-pico-button-and-led-sequence.mp4) |
+| NiceGUI | [Browser panel after emergency reset (MP4)](assets/demos/nicegui-emergency-interface.mp4) |
 
-[Image credits and source locations](docs/image-index.md)
+[Video source and timestamps](docs/video-index.md) · [Report screenshots](docs/image-index.md)
