@@ -1,61 +1,41 @@
-# PLC Boiler Control & Web Monitoring System
+# PLC Boiler Control & Web Monitoring
 
-![PLC Boiler Control cover from the original NiceGUI panel](assets/cover.webp)
+<img src="assets/cover.webp" alt="NiceGUI boiler control panel" width="560">
 
-## Project Overview
+I worked on the Logisim circuit, OpenPLC ladder logic, and Python web interface for an undergraduate boiler-control bench. Pushbuttons and LEDs represent the controls and outputs. The temperature shown in the browser is the selected setpoint.
 
-A laboratory boiler-control prototype built in three stages. We modeled the control rules in Logisim Evolution, implemented physical button and LED behavior with OpenPLC and a Raspberry Pi Pico, and added a local browser HMI in Python. The displayed temperature is a stepped setpoint.
+## Screenshots & Demonstrations
 
-## Course Demonstration Videos
-
-These MP4 excerpts come from the original course recordings. Open a video below to view or download the recording on GitHub.
-
-| Exercise | Course recording |
+| Raspberry Pi Pico bench | NiceGUI emergency reset |
 | --- | --- |
-| Logisim | [Setpoint, RUN and reset sequence (MP4)](assets/demos/logisim-boiler-state-sequence.mp4) |
-| OpenPLC / Pico | [Physical buttons and LED indicators (MP4)](assets/demos/openplc-pico-button-and-led-sequence.mp4) |
-| NiceGUI | [Browser panel after emergency reset (MP4)](assets/demos/nicegui-emergency-interface.mp4) |
+| ![Pico wired to pushbuttons and indicator LEDs](assets/screenshots/pico-bench-wiring.png) | ![NiceGUI panel showing emergency state with a cleared setpoint](assets/screenshots/nicegui-emergency-panel.png) |
 
-[Video source and timestamps](docs/video-index.md) · [Report screenshots](docs/image-index.md)
+[Logisim circuit](assets/screenshots/logisim-boiler-logic.png) · [OpenPLC monitor](assets/screenshots/openplc-runtime-monitor.png) · [Running HMI](assets/screenshots/nicegui-running-panel.png)
 
-## My Role & Contributions
-
-I co-developed the Logisim circuit and OpenPLC ladder logic and organized documentation for those stages. For the HMI, I shared code editing with my teammate and recorded and edited the demonstration video.
+**Videos** · [Boiler Control Logic Demo](assets/demos/logisim-boiler-state-sequence.mp4) · [Raspberry Pi Pico Hardware Demo](assets/demos/openplc-pico-button-and-led-sequence.mp4) · [NiceGUI Web Interface](assets/demos/nicegui-emergency-interface.mp4)
 
 ## Tech Stack
 
-- **Digital logic.** Logisim Evolution, counter, decoder, D flip-flop and logic gates.
-- **Bench control.** OpenPLC Editor and Runtime, IEC 61131-3 Ladder Diagram and Structured Text, Raspberry Pi Pico GPIO.
-- **Web and device interface.** Python, NiceGUI, PyModbus serial client and pySerial USB discovery.
-
-## System Architecture
-
-```mermaid
-flowchart LR
-    L["Logisim circuit"] -. "design reference" .-> P["OpenPLC and Pico bench"]
-    B["Physical buttons"] --> P
-    P --> D["Working LED and six temperature LEDs"]
-    P -- "discrete input and coil reads" --> H["Python state and NiceGUI panel"]
-    U["Browser actions"] --> H
-    H -. "attempted coil writes" .-> P
-```
+Logisim Evolution · OpenPLC Editor and Runtime · IEC 61131-3 Ladder Diagram and Structured Text · Raspberry Pi Pico GPIO · Python, NiceGUI, PyModbus and pySerial
 
 ## Implementation
 
-- A 4-bit counter models levels 0 through 11. The LEDs remain off at zero, start requires a nonzero setpoint, adjustment is gated while running, and the emergency input resets the counter and RUN state.
-- The PLC ladder design uses a CTUD counter, equality comparisons and OR groups for LED patterns. The submission includes an OpenPLC project and several ST exports with differing I/O mappings.
-- The saved Python script discovers the Pico serial port and polls discrete inputs and coils on a 0.5-second timer. Five handlers update local state and attempt to write output coils. The browser indicators render that local state.
+- **Digital logic.** A 4-bit up/down counter stores 12 setpoint levels. A decoder drives the temperature LEDs, and a D flip-flop holds the RUN state. Start requires a nonzero setpoint. While running, the adjustment buttons are gated off. Emergency reset clears both the setpoint and RUN state.
+- **PLC bench.** The ladder program uses a CTUD counter, comparisons, and OR logic to drive six temperature LEDs and a run indicator. The Pico reads physical buttons and drives the LEDs through GPIO.
+- **Web HMI.** The Python interface discovers the Pico’s USB serial port and polls discrete inputs and coils every 500 ms. Its controls update the browser state and attempt Modbus coil writes. During the lab, intermittent writes left the browser state and physical outputs out of sync.
 
-## Challenges & Solutions
+```mermaid
+flowchart LR
+    Circuit["Logisim circuit"] -. design reference .-> Pico["OpenPLC / Pico"]
+    Buttons["Pushbuttons"] --> Pico --> LEDs["Bench LEDs"]
+    Pico -->|Modbus reads| HMI["Python / NiceGUI"]
+    HMI -. attempted coil writes .-> Pico
+```
 
-The team adjusted Modbus settings, checked the hardware connection and inspected the protocol while investigating missed writes and delayed updates. Immediate UI state changes and notifications kept the control workflow visible in the demo. The report describes diagnostic and retry snippets. The retained script catches write exceptions without logging or retrying and does not check the write response.
+## Code
 
-## Results & Limitations
+- [Logisim circuit](src/logisim/boiler-control.circ)
+- [OpenPLC project and board settings](src/openplc) · [Structured Text exports](src/openplc/st-exports) (base and offset I/O variants)
+- [Python HMI](src/hmi/main.py)
 
-The course record shows the physical button and LED sequence and the browser's RUN, STOP and EMERGENCY states. Reliable browser-to-Pico actuation remained unresolved. A browser notification confirms the local software action only. The emergency action was a lab state transition. The observations above come from the original coursework.
-
-## Source
-
-The repository contains the [Logisim circuit](src/logisim), [OpenPLC project and Structured Text exports](src/openplc) and [NiceGUI HMI](src/hmi). The [source layout](docs/reproduction.md) documents each artifact and its configuration limits.
-
-[Evidence map](docs/evidence-map.md) · [Image index](docs/image-index.md) · [Portfolio copy](PORTFOLIO.md) · [Publication checklist](PUBLISH-CHECKLIST.md)
+The Structured Text exports retain the OpenPLC Runtime debugger notices for Autonomy and GP Orcullo. [GPL version 2 text](src/openplc/st-exports/LICENSE-GPL-2.0.txt)
