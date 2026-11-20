@@ -54,12 +54,8 @@ The team adjusted Modbus settings, checked the hardware connection and inspected
 
 The course record shows the physical button and LED sequence and the browser's RUN, STOP and EMERGENCY states. Reliable browser-to-Pico actuation remained unresolved. A browser notification confirms the local software action only. The emergency action was a lab state transition. The observations above come from the original coursework.
 
-## Course Source
+## Source
 
 The repository contains the [Logisim circuit](src/logisim), [OpenPLC project and Structured Text exports](src/openplc) and [NiceGUI HMI](src/hmi). The [source layout](docs/reproduction.md) documents each artifact and its configuration limits.
-
-## Course Project Background
-
-ITAE6.100 Automation and Embedded Systems, Semester 1 of 2025. The portfolio covers Parts 1, 3 and 4 of a two-person project. Part 2 covered CircuitPython process control and PID in a separate submission.
 
 [Evidence map](docs/evidence-map.md) · [Image index](docs/image-index.md) · [Portfolio copy](PORTFOLIO.md) · [Publication checklist](PUBLISH-CHECKLIST.md)
