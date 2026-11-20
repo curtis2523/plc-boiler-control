@@ -1,0 +1,14 @@
+{
+  "baud": "115200",
+  "board_type": "Raspberry Pico",
+  "mb_serial": true,
+  "mb_tcp": false,
+  "serial_iface": "Serial",
+  "slaveid": "1",
+  "tcp_iface": "WiFi",
+  "txpin": "-1",
+  "user_ain": "26, 27, 28",
+  "user_aout": "4,5",
+  "user_din": "6, 7, 8, 9, 10, 11, 12, 13",
+  "user_dout": "21, 20, 19, 18, 17, 16, 15, 14"
+}
